@@ -1,9 +1,9 @@
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using OopsAllLalafellsSRE.Windows;
+using HrothRemover.Windows;
 
-namespace OopsAllLalafellsSRE.Utils;
+namespace HrothRemover.Utils;
 
 internal class Service
 {

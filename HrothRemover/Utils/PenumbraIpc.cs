@@ -4,7 +4,7 @@ using Penumbra.Api.Helpers;
 using Penumbra.Api.IpcSubscribers;
 using System;
 
-namespace OopsAllLalafellsSRE.Utils
+namespace HrothRemover.Utils
 {
     internal class PenumbraIpc(IDalamudPluginInterface pluginInterface) : IDisposable
     {

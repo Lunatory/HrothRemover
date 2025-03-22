@@ -1,25 +1,25 @@
 using Dalamud.Interface.Windowing;
 using ImGuiNET;
-using OopsAllLalafellsSRE.Utils;
 using System;
 using System.Numerics;
-using static OopsAllLalafellsSRE.Utils.Constant;
+using HrothRemover.Utils;
+using static HrothRemover.Utils.Constant;
 
-namespace OopsAllLalafellsSRE.Windows;
+namespace HrothRemover.Windows;
 
 internal class ConfigWindow : Window
 {
     private readonly Configuration configuration;
     private readonly string[] race = ["Lalafell", "Hyur", "Elezen", "Miqo'te", "Roegadyn", "Au Ra", "Hrothgar", "Viera"];
-    private int selectedRaceIndex = 0;
+    private int selectedRaceIndex = 3;
     public event Action? OnConfigChanged;
 
     public ConfigWindow(Plugin plugin) : base(
-        "OopsAllLalafellsSRE Configuration Window",
+        "HrothRemoverConfiguration Window",
         ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
         ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(285, 160);
+        Size = new Vector2(285, 240);
         SizeCondition = ImGuiCond.Always;
 
         configuration = Service.configuration;
@@ -54,29 +54,57 @@ internal class ConfigWindow : Window
             configuration.Save();
         }
 
+
+
         ImGui.Separator();
         bool _NameHQ = configuration.nameHQ;
-        if (ImGui.Checkbox("Add HQ symbol to native lalafells\n(or other races)", ref _NameHQ))
+        if (ImGui.Checkbox("Add  symbol to native Hrothgars", ref _NameHQ))
         {
             configuration.nameHQ = _NameHQ;
             configuration.Save();
             OnConfigChanged?.Invoke();
         }
+
+        ImGui.Separator();
+        bool _IgnoreMale = configuration.ignoreMale;
+        if (ImGui.Checkbox("Don't transform Male PCs", ref _IgnoreMale))
+        {
+            configuration.ignoreMale = _IgnoreMale;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
+
+
+        bool _IgnoreMaleNPC = configuration.ignoreMaleNPC;
+        if (ImGui.Checkbox("Don't transform Male NPCs", ref _IgnoreMaleNPC))
+        {
+            configuration.ignoreMaleNPC = _IgnoreMaleNPC;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
+
+        bool _IgnoreFemaleNPC = configuration.ignoreFemaleNPC;
+        if (ImGui.Checkbox("Don't transform Female NPCs", ref _IgnoreFemaleNPC))
+        {
+            configuration.ignoreFemaleNPC = _IgnoreFemaleNPC;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
     }
 
-    private static Race MapIndexToRace(int index)
+    private static Constant.Race MapIndexToRace(int index)
     {
         return index switch
         {
-            0 => Race.LALAFELL,
-            1 => Race.HYUR,
-            2 => Race.ELEZEN,
-            3 => Race.MIQOTE,
-            4 => Race.ROEGADYN,
-            5 => Race.AU_RA,
-            6 => Race.HROTHGAR,
-            7 => Race.VIERA,
-            _ => Race.LALAFELL,
+            0 => Constant.Race.LALAFELL,
+            1 => Constant.Race.HYUR,
+            2 => Constant.Race.ELEZEN,
+            3 => Constant.Race.MIQOTE,
+            4 => Constant.Race.ROEGADYN,
+            5 => Constant.Race.AU_RA,
+            6 => Constant.Race.HROTHGAR,
+            7 => Constant.Race.VIERA,
+            _ => Constant.Race.LALAFELL,
         };
     }
 

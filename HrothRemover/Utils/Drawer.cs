@@ -3,9 +3,9 @@ using Penumbra.Api.Enums;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using static OopsAllLalafellsSRE.Utils.Constant;
+using static HrothRemover.Utils.Constant;
 
-namespace OopsAllLalafellsSRE.Utils
+namespace HrothRemover.Utils
 {
     internal class Drawer : IDisposable
     {
@@ -16,7 +16,7 @@ namespace OopsAllLalafellsSRE.Utils
             Service.configWindow.OnConfigChanged += RefreshAllPlayers;
             if (Service.configuration.enabled)
             {
-                Plugin.OutputChatLine("OopsAllLalafellsSRE starting...");
+                Plugin.OutputChatLine("HrothRemoverstarting...");
                 RefreshAllPlayers();
             }
         }
@@ -34,29 +34,33 @@ namespace OopsAllLalafellsSRE.Utils
 
             // return if not player character
             var gameObj = (GameObject*)gameObjectAddress;
-            if (gameObj->ObjectKind != ObjectKind.Pc) return;
+            //if (gameObj->ObjectKind != ObjectKind.Pc) return;
 
-            var customData = Marshal.PtrToStructure<CharaCustomizeData>(customizePtr);
-            if (customData.Race == Service.configuration.SelectedRace || customData.Race == Race.UNKNOWN)
-                return;
+            var customData = Marshal.PtrToStructure<Constant.CharaCustomizeData>(customizePtr);
+            if (customData.Race is not Constant.Race.HROTHGAR or Constant.Race.UNKNOWN) return;
+            if (Service.configuration.ignoreMale && customData.Gender == Constant.Gender.MALE && gameObj->ObjectKind == ObjectKind.Pc) return;
+            if (Service.configuration.ignoreMaleNPC && customData.Gender == Constant.Gender.MALE && gameObj->ObjectKind != ObjectKind.Pc) return;
+            if (Service.configuration.ignoreFemaleNPC && customData.Gender == Constant.Gender.FEMALE && gameObj->ObjectKind != ObjectKind.Pc) return;
 
             NonNativeID.Add(gameObj->NameString);
             ChangeRace(customData, customizePtr, Service.configuration.SelectedRace);
         }
 
-        private static unsafe void ChangeRace(CharaCustomizeData customData, nint customizePtr, Race selectedRace)
+        private static unsafe void ChangeRace(Constant.CharaCustomizeData customData, nint customizePtr, Constant.Race selectedRace)
         {
             customData.Race = selectedRace;
+            customData.RaceFeatureType %= 4;
             customData.Tribe = (byte)(((byte)selectedRace * 2) - (customData.Tribe % 2));
             customData.FaceType %= 4;
             customData.ModelType %= 2;
-            customData.HairStyle = (byte)((customData.HairStyle % RaceMappings.RaceHairs[selectedRace]) + 1);
+            customData.HairStyle = (byte)((customData.HairStyle % Constant.RaceMappings.RaceHairs[selectedRace]) + 1);
             Marshal.StructureToPtr(customData, customizePtr, true);
         }
 
         public void Dispose()
         {
             Service.configWindow.OnConfigChanged -= RefreshAllPlayers;
+            NonNativeID = [];
         }
     }
 }

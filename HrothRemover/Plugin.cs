@@ -3,18 +3,18 @@ using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
-using OopsAllLalafellsSRE.Utils;
-using OopsAllLalafellsSRE.Windows;
+using HrothRemover.Utils;
+using HrothRemover.Windows;
 using Penumbra.Api.Enums;
 
-namespace OopsAllLalafellsSRE
+namespace HrothRemover
 {
     internal sealed class Plugin : IDalamudPlugin
     {
-        public static string Name => "OopsAllLalafellsSRE";
-        private const string CommandName = "/polala";
+        public static string Name => "HrothRemover";
+        private const string CommandName = "/hr";
 
-        public WindowSystem WindowSystem { get; } = new("OopsAllLalafellsSRE");
+        public WindowSystem WindowSystem { get; } = new("HrothRemover");
 
         public Plugin(IDalamudPluginInterface pluginInterface)
         {
@@ -43,13 +43,13 @@ namespace OopsAllLalafellsSRE
 
             Service.commandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
             {
-                HelpMessage = "Opens OopsAllLalafellsSRE config menu."
+                HelpMessage = "Opens HrothRemover config menu."
             });
         }
 
         public static void OutputChatLine(SeString message)
         {
-            var sb = new SeStringBuilder().AddUiForeground("[OAL] ", 58).Append(message);
+            var sb = new SeStringBuilder().AddUiForeground("[HR] ", 58).Append(message);
             Service.chatGui.Print(new XivChatEntry { Message = sb.BuiltString });
         }
 

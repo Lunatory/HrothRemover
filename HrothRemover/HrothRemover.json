@@ -1,0 +1,12 @@
+{
+    "Author": "Avaflow, Ars Magna, Kelvin, Terralyn",
+    "Name": "HrothRemover",
+    "Punchline": "Turn all Hrothgars into Miqo'te (or other races!)",
+    "Description": "Turn all Hrothgars into Miqo'te (or other races!)\n/noh on = enable plugin.\n/noh off = disable plugin.",
+    "InternalName": "HrothRemover",
+    "ApplicableVersion": "any",
+    "Tags": [
+        "hrothgar"
+    ],
+    "IconUrl": "https://raw.githubusercontent.com/kelvin124124/OopsAllLalafellsSRE/main/image/icon.png"
+}

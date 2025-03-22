@@ -1,6 +1,6 @@
 using Dalamud.Game.Gui.NamePlate;
 
-namespace OopsAllLalafellsSRE.Utils
+namespace HrothRemover.Utils
 {
     internal class Nameplate
     {
@@ -19,11 +19,11 @@ namespace OopsAllLalafellsSRE.Utils
                         {
                             if (handler.PlayerCharacter == null) return;
 
-                            // if native lalafells
-                            if (!Drawer.NonNativeID.Contains(handler.PlayerCharacter.Name.TextValue))
+                            // if native hrothgar
+                            if (Drawer.NonNativeID.Contains(handler.PlayerCharacter.Name.TextValue))
                             {
-                                // Plugin.OutputChatLine($"Adding HQ to {handler.PlayerCharacter.Name.TextValue}");
-                                handler.NameParts.Text = $"{handler.Name} \uE03C";
+                                // Plugin.OutputChatLine($"Adding  to {handler.PlayerCharacter.Name.TextValue}");
+                                handler.NameParts.Text = $"{handler.Name} ";
                             }
                         }
                     }

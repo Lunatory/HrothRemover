@@ -1,18 +1,22 @@
 using Dalamud.Configuration;
 using Dalamud.Plugin;
 using System;
-using static OopsAllLalafellsSRE.Utils.Constant;
+using HrothRemover.Utils;
+using static HrothRemover.Utils.Constant;
 
-namespace OopsAllLalafellsSRE
+namespace HrothRemover
 {
     [Serializable]
     internal class Configuration : IPluginConfiguration
     {
         public int Version { get; set; } = 0;
-        public Race SelectedRace { get; set; } = Race.LALAFELL;
+        public Constant.Race SelectedRace { get; set; } = Constant.Race.MIQOTE;
         public bool enabled { get; set; } = false;
         public bool stayOn { get; set; } = false;
         public bool nameHQ { get; set; } = true;
+        public bool ignoreMale { get; set; } = false;
+        public bool ignoreMaleNPC { get; set; } = true;
+        public bool ignoreFemaleNPC { get; set; } = true;
 
         // the below exist just to make saving less cumbersome
         [NonSerialized]
