@@ -8,7 +8,7 @@ Turn all Hrothgars into Miqo'te (or other races!)
 - Repurposed by Terralyn
 
 ## Usage
-Add `https://raw.githubusercontent.com/x/CustomPlugins/main/pluginmaster.json` and `https://raw.githubusercontent.com/xivdev/Penumbra/master/repo.json` to list of custom repo under Experimental tab in dalamud settings.  
+Add `https://raw.githubusercontent.com/Lunatory/DalamudRepo/main/pluginmaster.json` and `https://raw.githubusercontent.com/xivdev/Penumbra/master/repo.json` to list of custom repo under Experimental tab in dalamud settings.  
 Install and enable Penumbra and HrothRemover.
 
 ## ⚠️ READ THIS ⚠️
