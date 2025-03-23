@@ -39,6 +39,7 @@ namespace HrothRemover.Utils
 
             var customData = Marshal.PtrToStructure<Constant.CharaCustomizeData>(customizePtr);
             if (customData.Race is not Constant.Race.HROTHGAR or Constant.Race.UNKNOWN) return;
+            if (Service.configuration.ignoreFemale && customData.Gender == Constant.Gender.FEMALE && gameObj->ObjectKind == ObjectKind.Pc) return;
             if (Service.configuration.ignoreMale && customData.Gender == Constant.Gender.MALE && gameObj->ObjectKind == ObjectKind.Pc) return;
             if (Service.configuration.ignoreMaleNPC && customData.Gender == Constant.Gender.MALE && gameObj->ObjectKind != ObjectKind.Pc) return;
             if (Service.configuration.ignoreFemaleNPC && customData.Gender == Constant.Gender.FEMALE && gameObj->ObjectKind != ObjectKind.Pc) return;
