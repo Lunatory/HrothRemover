@@ -60,7 +60,7 @@ namespace HrothRemover.Utils
         public void Dispose()
         {
             Service.configWindow.OnConfigChanged -= RefreshAllPlayers;
-            NonNativeID = [];
+            NonNativeID.Clear();
         }
     }
 }
