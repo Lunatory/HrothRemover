@@ -23,6 +23,7 @@ namespace HrothRemover.Utils
 
         private static void RefreshAllPlayers()
         {
+            NonNativeID.Clear();
             Plugin.OutputChatLine("Refreshing all players");
             Service.penumbraApi.RedrawAll(RedrawType.Redraw);
             Service.namePlateGui.RequestRedraw();
@@ -60,7 +61,6 @@ namespace HrothRemover.Utils
         public void Dispose()
         {
             Service.configWindow.OnConfigChanged -= RefreshAllPlayers;
-            NonNativeID.Clear();
         }
     }
 }
