@@ -19,7 +19,7 @@ internal class ConfigWindow : Window
         ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
         ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(285, 240);
+        Size = new Vector2(285, 250);
         SizeCondition = ImGuiCond.Always;
 
         configuration = Service.configuration;
@@ -74,6 +74,13 @@ internal class ConfigWindow : Window
             OnConfigChanged?.Invoke();
         }
 
+        bool _IgnoreFemale = configuration.ignoreFemale;
+        if (ImGui.Checkbox("Don't transform Female PCs", ref _IgnoreFemale))
+        {
+            configuration.ignoreFemale = _IgnoreFemale;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
 
         bool _IgnoreMaleNPC = configuration.ignoreMaleNPC;
         if (ImGui.Checkbox("Don't transform Male NPCs", ref _IgnoreMaleNPC))
