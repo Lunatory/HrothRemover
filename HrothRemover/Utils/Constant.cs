@@ -32,7 +32,7 @@ namespace HrothRemover.Utils
                 { Race.ELEZEN, 12 },
                 { Race.LALAFELL, 13 },
                 { Race.MIQOTE, 12 },
-                { Race.ROEGADYN, 13 },
+                { Race.ROEGADYN, 12 },
                 { Race.AU_RA, 12 },
                 { Race.HROTHGAR, 8 },
                 { Race.VIERA, 17 },
