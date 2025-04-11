@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    uses: Lunatory/DalamudRepo/.github/workflows/reusable_create_release.yml@master
+    uses: Lunatory/DalamudRepo/.github/workflows/reusable_create_release_nosubfolder.yml@master
     with:
       internal_name: HrothRemover
       solution_name: HrothRemover
