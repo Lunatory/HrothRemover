@@ -2,6 +2,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using Penumbra.Api.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using static HrothRemover.Utils.Constant;
 
@@ -52,7 +53,10 @@ namespace HrothRemover.Utils
         {
             customData.Race = selectedRace;
             customData.RaceFeatureType %= 4;
-            customData.Tribe = (byte)(((byte)selectedRace * 2) - (customData.Tribe % 2));
+            if (Service.configuration.forceTribe)
+                customData.Tribe = (byte)(Service.configuration.selectedTribe+1);
+            else
+                customData.Tribe = (byte)(((byte)selectedRace * 2) - (customData.Tribe % 2));
             customData.FaceType %= 4;
             customData.ModelType %= 2;
             customData.HairStyle = (byte)((customData.HairStyle % Constant.RaceMappings.RaceHairs[selectedRace]) + 1);

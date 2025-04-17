@@ -23,6 +23,11 @@ namespace HrothRemover.Utils
             MALE = 0,
             FEMALE = 1
         }
+        public enum SelectedTribe : byte
+        {
+            ZERO = 0,
+            ONE = 1
+        }
 
         public class RaceMappings
         {
@@ -46,6 +51,7 @@ namespace HrothRemover.Utils
             [FieldOffset((int)CustomizeIndex.Gender)] public Gender Gender;
             [FieldOffset((int)CustomizeIndex.ModelType)] public byte ModelType;
             [FieldOffset((int)CustomizeIndex.Tribe)] public byte Tribe;
+            [FieldOffset((int)CustomizeIndex.Tribe)] public SelectedTribe SelectedTribe;
             [FieldOffset((int)CustomizeIndex.FaceType)] public byte FaceType;
             [FieldOffset((int)CustomizeIndex.HairStyle)] public byte HairStyle;
             [FieldOffset((int)CustomizeIndex.RaceFeatureType)] public byte RaceFeatureType;

@@ -14,6 +14,8 @@ namespace HrothRemover
         public bool enabled { get; set; } = false;
         public bool stayOn { get; set; } = false;
         public bool nameHQ { get; set; } = true;
+        public bool forceTribe { get; set; } = false;
+        public Constant.SelectedTribe selectedTribe { get; set; } = Constant.SelectedTribe.ZERO;
         public bool ignoreFemale { get; set; } = false;
         public bool ignoreMale { get; set; } = false;
         public bool ignoreMaleNPC { get; set; } = true;

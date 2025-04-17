@@ -12,6 +12,7 @@ internal class ConfigWindow : Window
     private readonly Configuration configuration;
     private readonly string[] race = ["Lalafell", "Hyur", "Elezen", "Miqo'te", "Roegadyn", "Au Ra", "Hrothgar", "Viera"];
     private int selectedRaceIndex = 3;
+    private int selectedTribeIndex = 0;
     public event Action? OnConfigChanged;
 
     public ConfigWindow(Plugin plugin) : base(
@@ -19,7 +20,7 @@ internal class ConfigWindow : Window
         ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoScrollbar |
         ImGuiWindowFlags.NoScrollWithMouse)
     {
-        Size = new Vector2(285, 250);
+        Size = new Vector2(285, 300);
         SizeCondition = ImGuiCond.Always;
 
         configuration = Service.configuration;
@@ -36,6 +37,27 @@ internal class ConfigWindow : Window
             configuration.SelectedRace = MapIndexToRace(selectedRaceIndex);
             configuration.Save();
             OnConfigChanged?.Invoke();
+        }
+        
+        bool _ForceTribe = configuration.forceTribe;
+        if (ImGui.Checkbox("Force Clan", ref _ForceTribe))
+        {
+            configuration.forceTribe = _ForceTribe;
+            configuration.Save();
+            OnConfigChanged?.Invoke();
+        }
+
+        if (configuration.forceTribe)
+        {
+            ImGui.TextUnformatted("Target Clan");
+            ImGui.SameLine();
+            string[] tribeNames = findTribe(configuration.SelectedRace);
+            if (ImGui.Combo("###Tribe", ref selectedTribeIndex, tribeNames, tribeNames.Length))
+            {
+                configuration.selectedTribe = MapIndexToTribe(selectedTribeIndex);
+                configuration.Save();
+                OnConfigChanged?.Invoke();
+            }
         }
 
         // Enabled
@@ -112,6 +134,31 @@ internal class ConfigWindow : Window
             6 => Constant.Race.HROTHGAR,
             7 => Constant.Race.VIERA,
             _ => Constant.Race.LALAFELL,
+        };
+    }
+    
+    private static Constant.SelectedTribe MapIndexToTribe(int index)
+    {
+        return index switch
+        {
+            0 => Constant.SelectedTribe.ZERO,
+            1 => Constant.SelectedTribe.ONE,
+            _ => Constant.SelectedTribe.ZERO
+        };
+    }
+
+    private static string[] findTribe(Race race)
+    {
+        return race switch
+        {
+            Race.LALAFELL => ["Plainsfolk", "Dunesfolk"],
+            Race.HYUR => ["Midlander", "Highlander"],
+            Race.ELEZEN => ["Wildwood", "Duskwight"],
+            Race.MIQOTE => ["Seeker of the Sun", "Keeper of the Moon"],
+            Race.ROEGADYN => ["Sea Wolves", "Hellsguard"],
+            Race.AU_RA => ["Raen", "Xaela"],
+            Race.HROTHGAR => ["Hellion", "The Lost"],
+            Race.VIERA => ["Rava", "Veena"]
         };
     }
 
