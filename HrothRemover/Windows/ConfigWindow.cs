@@ -158,7 +158,8 @@ internal class ConfigWindow : Window
             Race.ROEGADYN => ["Sea Wolves", "Hellsguard"],
             Race.AU_RA => ["Raen", "Xaela"],
             Race.HROTHGAR => ["Hellion", "The Lost"],
-            Race.VIERA => ["Rava", "Veena"]
+            Race.VIERA => ["Rava", "Veena"],
+            _ => ["One", "Two"],
         };
     }
 
