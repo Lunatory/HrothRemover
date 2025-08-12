@@ -1,5 +1,5 @@
 using Dalamud.Interface.Windowing;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 using System;
 using System.Numerics;
 using HrothRemover.Utils;
@@ -51,7 +51,7 @@ internal class ConfigWindow : Window
         {
             ImGui.TextUnformatted("Target Clan");
             ImGui.SameLine();
-            string[] tribeNames = findTribe(configuration.SelectedRace);
+            string[] tribeNames = FindTribe(configuration.SelectedRace);
             if (ImGui.Combo("###Tribe", ref selectedTribeIndex, tribeNames, tribeNames.Length))
             {
                 configuration.selectedTribe = MapIndexToTribe(selectedTribeIndex);
@@ -125,15 +125,15 @@ internal class ConfigWindow : Window
     {
         return index switch
         {
-            0 => Constant.Race.LALAFELL,
-            1 => Constant.Race.HYUR,
-            2 => Constant.Race.ELEZEN,
-            3 => Constant.Race.MIQOTE,
-            4 => Constant.Race.ROEGADYN,
-            5 => Constant.Race.AU_RA,
-            6 => Constant.Race.HROTHGAR,
-            7 => Constant.Race.VIERA,
-            _ => Constant.Race.LALAFELL,
+            0 => Race.LALAFELL,
+            1 => Race.HYUR,
+            2 => Race.ELEZEN,
+            3 => Race.MIQOTE,
+            4 => Race.ROEGADYN,
+            5 => Race.AU_RA,
+            6 => Race.HROTHGAR,
+            7 => Race.VIERA,
+            _ => Race.LALAFELL,
         };
     }
     
@@ -141,13 +141,13 @@ internal class ConfigWindow : Window
     {
         return index switch
         {
-            0 => Constant.SelectedTribe.ZERO,
-            1 => Constant.SelectedTribe.ONE,
-            _ => Constant.SelectedTribe.ZERO
+            0 => SelectedTribe.ZERO,
+            1 => SelectedTribe.ONE,
+            _ => SelectedTribe.ZERO
         };
     }
 
-    private static string[] findTribe(Race race)
+    private static string[] FindTribe(Race race)
     {
         return race switch
         {
